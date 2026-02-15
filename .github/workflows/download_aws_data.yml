@@ -3,7 +3,7 @@ on:
   push:
     branches: ["main"]
   schedule:
-    - cron: "0 16 * * *" # Runs daily at 16:00 UTC
+    - cron: "0 16 * * 5" # Runs every Friday of the week at 16:00 UTC
 
 jobs:
   download:
