@@ -12,16 +12,25 @@
 * Scalable architecture for deep learning & AI applications
 
 #### Project Architecture
-![Project Concept](https://github.com/sagarlimbu0/Data-Pipeline-for-AWS-Crawl-data-analysis/blob/main/project_concept.jpg)
+![Project Concept](https://github.com/sagarlimbu0/AWS-Common-Crawl-Data-Pipeline-Analytics-with-PysSpark-SQL/blob/main/docs/project_concept.jpg)
 
 ### Project Template
-my-project/
-├── src/my_project/
-│   ├── __init__.py
-│   └── core.py
-├── tests/
-├── docs/
-├── .github/
-├── pyproject.toml
-├── README.md
-├── LICENSE
+  ├── .github/
+    │   ├── workflows/
+        │   ├── download_aws_data.yml
+  ├── dags/
+  ├── docker/
+      │   ├── airflow.sh
+      │   ├── docker-compose.yml
+      │   ├── instructions.txt 
+  ├── docs/
+  ├── notebooks/
+  ├── scripts/
+    │   ├── download_aws_crawl_data/
+  ├── src
+    │   ├── examples/
+    │   ├── my_app/
+  ├── .gitignore
+  ├── LICENSE
+  ├── README.md
+  ├── requirements.txt
