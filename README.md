@@ -15,22 +15,22 @@
 ![Project Concept](https://github.com/sagarlimbu0/AWS-Common-Crawl-Data-Pipeline-Analytics-with-PysSpark-SQL/blob/main/docs/project_concept.jpg)
 
 ### Project Template
-  ├── .github/
-    │   ├── workflows/
-        │   ├── download_aws_data.yml
-  ├── dags/
-  ├── docker/
-      │   ├── airflow.sh
-      │   ├── docker-compose.yml
-      │   ├── instructions.txt 
-  ├── docs/
-  ├── notebooks/
-  ├── scripts/
-    │   ├── download_aws_crawl_data/
-  ├── src
-    │   ├── examples/
-    │   ├── my_app/
-  ├── .gitignore
-  ├── LICENSE
-  ├── README.md
-  ├── requirements.txt
+├── .github/
+  │   ├── workflows/
+      │   ├── download_aws_data.yml
+├── dags/
+├── docker/
+    │   ├── airflow.sh
+    │   ├── docker-compose.yml
+    │   ├── instructions.txt 
+├── docs/
+├── notebooks/
+├── scripts/
+  │   ├── download_aws_crawl_data/
+├── src
+  │   ├── examples/
+  │   ├── my_app/
+├── .gitignore
+├── LICENSE
+├── README.md
+├── requirements.txt
