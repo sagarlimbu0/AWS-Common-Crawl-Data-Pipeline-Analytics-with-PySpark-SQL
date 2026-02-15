@@ -13,3 +13,15 @@
 
 #### Project Architecture
 ![Project Concept](https://github.com/sagarlimbu0/Data-Pipeline-for-AWS-Crawl-data-analysis/blob/main/project_concept.jpg)
+
+### Project Template
+my-project/
+├── src/my_project/
+│   ├── __init__.py
+│   └── core.py
+├── tests/
+├── docs/
+├── .github/
+├── pyproject.toml
+├── README.md
+├── LICENSE
