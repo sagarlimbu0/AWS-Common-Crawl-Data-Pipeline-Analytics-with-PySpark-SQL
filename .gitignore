@@ -1,2 +1,2 @@
-data
-s3_common_crawl
+# Ignore Large gz downloaded files
+/scripts/download_aws_crawl_data/data/*
