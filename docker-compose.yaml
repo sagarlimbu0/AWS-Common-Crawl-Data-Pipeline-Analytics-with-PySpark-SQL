@@ -1,0 +1,111 @@
+## NOTE:
+# NETWORK: Setup network to allow communication between services: Airflow, PostgreSQL, Spark, MinIO, and pgAdmin
+
+## Aiflow Configuration
+x-airflow-common: &airflow-common
+  build: .
+  env_file:
+    - .env
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./secrets:/opt/airflow/secrets
+    - ./logs:/opt/airflow/logs
+    - .temp:/home/ubuntu/temp
+    - /etc/localtime:/etc/localtime:ro
+  networks:
+    - spark-postgres-network
+  depends_on:
+    - postgres
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./data/postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - spark-postgres-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    ports:
+      - "5051:80"
+    volumes:
+      - ./data/pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - spark-postgres-network
+  
+  spark-notebook:
+    image: jupyter/pyspark-notebook
+    container_name: spark-notebook
+    restart: always
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+      - ./notebooks/jars:/home/jovyan/jars
+    environment:
+      JUPYTER_ENABLE_LAB: "yes"    
+    networks:
+      - spark-postgres-network
+
+  minio:
+    image: minio/minio
+    container_name: minio
+    restart: always
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./data/minio_data:/data
+    command: server /data --console-address ":9001"
+    networks:
+      - spark-postgres-network
+
+  airflow-init:
+    <<: *airflow-common
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db init &&
+        airflow users create \
+          --username "$${_AIRFLOW_WWW_USER_USERNAME}" \
+          --firstname "$${_AIRFLOW_WWW_USER_FIRSTNAME}" \
+          --lastname "$${_AIRFLOW_WWW_USER_LASTNAME}" \
+          --role Admin \
+          --email "$${_AIRFLOW_WWW_USER_EMAIL}" \
+          --password "$${_AIRFLOW_WWW_USER_PASSWORD}"
+    restart: "no"
+
+  airflow-webserver:
+    <<: *airflow-common
+    command: webserver
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/opt/airflow/logs
+
+  airflow-scheduler:
+    <<: *airflow-common
+    command: scheduler
+    volumes:
+      - ./logs:/opt/airflow/logs
+
+networks:
+  spark-postgres-network:
+    driver: bridge
