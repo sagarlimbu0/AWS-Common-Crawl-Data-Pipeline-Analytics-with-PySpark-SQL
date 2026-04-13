@@ -1,2 +1,12 @@
 # Ignore Large gz downloaded files
 /scripts/download_aws_crawl_data/data/*
+.env
+
+# Ignore database directories
+/data/minio_data/*
+/data/pgadmin_data/*
+/data/postgres_data/*
+
+# Ignore notebook downloaded data
+/notebooks/data/*
+

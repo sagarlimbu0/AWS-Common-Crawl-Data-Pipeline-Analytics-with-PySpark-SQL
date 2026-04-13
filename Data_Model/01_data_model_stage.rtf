@@ -1,0 +1,39 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \
+\
+\
+-- 1. create a staging table for AWS common crawl records\
+CREATE TABLE "DBO"."STG_AWS_CC_RAW"\
+(\
+	ingest_id varchar(255) primary key,\
+	crawl_id varchar(30) not null, -- EG: CC-MAIN-2024-10\
+	url TEXT NOT NULL,\
+	url_surtkey TEXT,	-- canonical SURT form\
+	url_host_registered_domain varchar(255),\
+	url_host_tld VARCHAR(20),\
+	fetch_date TIMESTAMPTZ,\
+	fetch_status SMALLINT, -- HTTP status code\
+	content_mime_detected VARCHAR(100),\
+	content_languages VARCHAR(200),\
+	content_charset VARCHAR(50),\
+	warc_filename TEXT,\
+	warc_record_offset BIGINT,\
+	warc_record_length INT,\
+	ingested_at TIMESTAMPTZ DEFAULT NOW()\
+)\
+;\
+\
+ALTER TABLE IF EXISTS "DBO"."STG_AWS_CC_RAW"\
+    OWNER to airflow;\
+\
+COMMENT ON TABLE "DBO"."STG_AWS_CC_RAW"\
+    IS 'Raw staging table to store AWS common crawl records. Includes information such as mirrors WARC/CDX parsed output.';\
+\
+\
+-- 2. Transformation- Clean and enrich records}
