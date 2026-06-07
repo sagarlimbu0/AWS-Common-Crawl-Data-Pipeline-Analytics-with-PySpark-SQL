@@ -1,0 +1,15 @@
+# Connect pyspark Jupyter nb with postgreSQL
+1. Require JDBC driver for postgressql
+- pyspark needs postgreSQL JAR to talk to Postgres:
+- download:
+	- mkdir jars
+	curl -L https://jdbc.postgresql.org/download/postgresql-42.7.3.jar -o jars/postgresql-42.7.3.jar
+2. Mount the volume of downloaded JAR file to Jupyter notebook
+3. Require Network setup in docker compose between Jupyter nb and Postgres
+- create a same network name on both services
+	networks:
+	  - spark-postgres-network
+- Create new component inside docker compose file
+	networks:
+	  spark-postgres-network:
+	    driver: bridge
