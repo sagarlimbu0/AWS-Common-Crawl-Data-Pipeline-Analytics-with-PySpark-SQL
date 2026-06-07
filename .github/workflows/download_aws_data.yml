@@ -1,24 +1,20 @@
-name: AWS common Crawl data download
-on:
-  push:
-    branches: ["main"]
-  schedule:
-    - cron: "0 16 * * 5" # Runs every Friday of the week at 16:00 UTC
+# name: AWS common Crawl data download
+# on:
+#   push:
+#     branches: ["main"]
+#   schedule:
+#     - cron: "0 16 * * 5" # Runs every Friday of the week at 16:00 UTC
 
-jobs:
-  download:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          python-version: '3.11'
-      - name: Install Required dependencies
-        run: |
-          python -m pip install --upgrade pip setuptools wheel
-          pip install -r requirements.txt
+# jobs:
+#   download:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v4
+#         with:
+#           python-version: '3.11'
+#       - name: Install Required dependencies
+#         run: |
+#           python -m pip install --upgrade pip setuptools wheel
+#           pip install -r requirements.txt
 
-
-
-    
-        

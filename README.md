@@ -1,6 +1,7 @@
 ### Architecture of the Data pipeline and Web-Scale Analytics Platform using AWS Common Crawl + PySpark
 - This is a ongoing project to build a data pipeline that ingests data from the source and stores into data warehouse
 - An end-to-end big data pipeline that processes the AWS Open Data Common Crawl corpus using PySpark and Spark SQL to build a scalable data warehouse for advanced analytics
+- **Data Source**: [Common Crawl](https://commoncrawl.org/) - A massive corpus of web crawl data freely available on AWS
 - More information from the diagram and concept can provide detail understanding of the project. This project structure will evolve over time as different factors are required to be conisidered.
 
 ### Key Highlights
@@ -15,22 +16,24 @@
 ![Project Concept](https://github.com/sagarlimbu0/AWS-Common-Crawl-Data-Pipeline-Analytics-with-PysSpark-SQL/blob/main/docs/project_concept.jpg)
 
 ### Project Template
+```
 ├── .github/
-  │   ├── workflows/
-      │   ├── download_aws_data.yml
+│   ├── workflows/
+│   │   ├── download_aws_data.yml
 ├── dags/
 ├── docker/
-    │   ├── airflow.sh
-    │   ├── docker-compose.yml
-    │   ├── instructions.txt 
+│   ├── airflow.sh
+│   ├── docker-compose.yml
+│   ├── instructions.txt 
 ├── docs/
 ├── notebooks/
 ├── scripts/
-  │   ├── download_aws_crawl_data/
-├── src
-  │   ├── examples/
-  │   ├── my_app/
+│   ├── download_aws_crawl_data/
+├── src/
+│   ├── examples/
+│   ├── my_app/
 ├── .gitignore
 ├── LICENSE
 ├── README.md
 ├── requirements.txt
+```

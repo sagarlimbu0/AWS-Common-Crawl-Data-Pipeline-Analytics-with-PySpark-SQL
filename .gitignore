@@ -9,4 +9,4 @@
 
 # Ignore notebook downloaded data
 /notebooks/data/*
-
+.ipynb_checkpoints
